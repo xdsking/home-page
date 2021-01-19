@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <!-- when using the mode "code", it's important to specify charset utf-8 -->
+    <meta charset="utf-8">
+
+    <link href="jsoneditor.min.css" rel="stylesheet" type="text/css">
+    <script src="jsoneditor.min.js"></script>
+    <style>
+        html,body{
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+<div id="jsoneditor" style="width: 50%; height: 100%;position: absolute;"></div>
+<div id="jsoneditor1" style="width: 50%; height: 100%;position: absolute;right: 0"></div>
+
+<script>
+// create the editor
+const container = document.getElementById("jsoneditor")
+const container1 = document.getElementById("jsoneditor1")
+const options = {
+    mode:'code',
+    onChangeText:function () {
+        editor1.set(editor.get())
+    }
+
+}
+const options1 = {
+    mode:'tree',
+    onChangeJSON:function () {
+        editor.set(editor1.get())
+    }
+}
+const editor = new JSONEditor(container, options)
+const editor1= new JSONEditor(container1, options1)
+
+// set json
+const initialJson = {
+    "Array": [1, 2, 3],
+    "Boolean": true,
+    "Null": null,
+    "Number": 123,
+    "Object": {"a": "b", "c": "d"},
+    "String": "Hello World"
+}
+editor.set(initialJson)
+editor1.set(initialJson)
+
+// get json
+const updatedJson = editor.get()
+</script>
+</body>
+</html>
